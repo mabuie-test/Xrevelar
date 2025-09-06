@@ -1,16 +1,61 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
-  <title>Dashboard Monitor</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+  <meta charset="utf-8" />
+  <title>Monitor Dashboard</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
-  <h1>Dashboard</h1>
-  <div id="map"></div>
-  <div id="tables"></div>
+  <div id="app">
+    <header>
+      <h1>Monitor Dashboard</h1>
+      <div id="loginBox" class="box">
+        <input id="username" placeholder="usuário" />
+        <input id="password" placeholder="senha" type="password" />
+        <button id="btnLogin">Login</button>
+      </div>
+      <div id="controls" class="box" style="display:none;">
+        <input id="deviceIdInput" placeholder="DeviceId" />
+        <button id="btnSelect">Selecionar</button>
+        <button id="btnLogout">Logout</button>
+        <span id="status">—</span>
+      </div>
+    </header>
 
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="js/app.js"></script>
+    <main class="main-wrap">
+      <aside>
+        <ul id="menuList">
+          <li data-sec="sms">Mensagens</li>
+          <li data-sec="calls">Chamadas</li>
+          <li data-sec="notifs">Notificações</li>
+          <li data-sec="location" class="active">Localizações</li>
+          <li data-sec="media">Mídia</li>
+        </ul>
+      </aside>
+
+      <section class="content">
+        <div id="sms" class="panel"><h2>SMS</h2><ul id="smsList"></ul></div>
+        <div id="calls" class="panel hidden"><h2>Chamadas</h2><ul id="callsList"></ul></div>
+        <div id="notifs" class="panel hidden"><h2>Notificações</h2><ul id="notifsList"></ul></div>
+
+        <div id="location" class="panel"><h2>Localizações</h2>
+          <div id="map" style="height:480px;"></div>
+          <ul id="locList"></ul>
+        </div>
+
+        <div id="media" class="panel hidden"><h2>Mídia</h2><ul id="mediaList"></ul></div>
+      </section>
+    </main>
+
+    <footer style="text-align:center;padding:8px;font-size:12px;color:#666">
+      Se partes da UI estiverem em falta abra a consola do browser (F12) e veja erros.
+    </footer>
+  </div>
+
+  <script src="/main.js"></script>
 </body>
-</html>
+  </html>
